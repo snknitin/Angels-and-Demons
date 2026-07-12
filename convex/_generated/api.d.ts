@@ -8,13 +8,23 @@
  * @module
  */
 
+import type * as db from "../db.js";
+import type * as engine from "../engine.js";
+import type * as http from "../http.js";
+import type * as personas from "../personas.js";
+
 import type {
   ApiFromModules,
   FilterApi,
   FunctionReference,
 } from "convex/server";
 
-declare const fullApi: ApiFromModules<{}>;
+declare const fullApi: ApiFromModules<{
+  db: typeof db;
+  engine: typeof engine;
+  http: typeof http;
+  personas: typeof personas;
+}>;
 
 /**
  * A utility for referencing Convex functions in your app's public API.
