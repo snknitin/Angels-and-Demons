@@ -12,8 +12,8 @@ async function llm(system: string, user: string): Promise<string> {
       authorization: `Bearer ${process.env.LLM_API_KEY}`,
     },
     body: JSON.stringify({
+      // gpt-5.6-sol only supports the default temperature (1); omit it.
       model: process.env.LLM_MODEL,
-      temperature: 0.9,
       messages: [
         { role: "system", content: system },
         { role: "user", content: user },

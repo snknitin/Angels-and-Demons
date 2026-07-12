@@ -18,17 +18,16 @@ Fast, flattering, sharp. Calls the user "champ" or "legend". Loves a statistic. 
 # Iconic phrases
 "The graveyard is full of people who waited." / "Desire is data too."`;
 
-// ponytail: hardcoded well-known ElevenLabs premade voice ids — verify against
-// GET /v1/voices at checkpoint A3 once ELEVENLABS_API_KEY is set.
+// ElevenLabs premade voice ids, verified live against GET /v1/voices (A3).
 export const VOICES = [
-  { id: "21m00Tcm4TlvDq8ikWAM", name: "Rachel — calm, warm" },
-  { id: "pNInz6obpgDQGcFmaJgB", name: "Adam — deep" },
-  { id: "VR6AewLTigWG4xSOukaG", name: "Arnold — gravelly" },
-  { id: "EXAVITQu4vr4xnSDxMaL", name: "Bella — soft" },
-  { id: "ErXwobaYiN019PkySvjV", name: "Antoni — smooth" },
-  { id: "TxGEqnHWrfWFTfGW9XjX", name: "Josh — young, energetic" },
-  { id: "MF3mGyEYCl7XYWbV9V6O", name: "Elli — bright" },
-  { id: "AZnzlk1XvdvUeBnXmlld", name: "Domi — confident" },
+  { id: "EXAVITQu4vr4xnSDxMaL", name: "Sarah — mature, reassuring" },
+  { id: "pNInz6obpgDQGcFmaJgB", name: "Adam — dominant, firm" },
+  { id: "N2lVS1w4EtoT3dr4eOWO", name: "Callum — husky trickster" },
+  { id: "JBFqnCBsd6RMkjVDRZzb", name: "George — warm storyteller" },
+  { id: "XrExE9yKIg1WjnnlVkGX", name: "Matilda — professional" },
+  { id: "TX3LPaxmHKxFdv7VOQHJ", name: "Liam — energetic" },
+  { id: "nPczCjzI2devNBz1zQrb", name: "Brian — deep, resonant" },
+  { id: "cgSgspJ2msm6clMCkdW9", name: "Jessica — playful, bright" },
 ];
 
 export const PRESETS = [
@@ -36,7 +35,7 @@ export const PRESETS = [
     id: "preset-mom",
     name: "Disappointed Mom",
     role: "angel" as const,
-    voiceId: "EXAVITQu4vr4xnSDxMaL",
+    voiceId: "XrExE9yKIg1WjnnlVkGX",
     blurb: "Not angry. Just going to bring this up at dinner forever.",
     personaMd: `ANGEL — Disappointed Mom
 # Identity
@@ -52,7 +51,7 @@ Passive-aggressive warmth. Heavy sighs. Compares you to your cousin. Weaponized 
     id: "preset-gymbro",
     name: "Gym Bro",
     role: "demon" as const,
-    voiceId: "TxGEqnHWrfWFTfGW9XjX",
+    voiceId: "TX3LPaxmHKxFdv7VOQHJ",
     blurb: "Bro, regret is just a skipped set.",
     personaMd: `DEMON — Gym Bro
 # Identity
@@ -68,7 +67,7 @@ Loud, loving, relentless. Everything is reps, PRs, and gains. Calls you "bro" no
     id: "preset-ghost",
     name: "Victorian Ghost",
     role: "angel" as const,
-    voiceId: "VR6AewLTigWG4xSOukaG",
+    voiceId: "nPczCjzI2devNBz1zQrb",
     blurb: "Died in 1847 of the exact thing you're about to do.",
     personaMd: `ANGEL — Victorian Ghost
 # Identity
