@@ -4,6 +4,23 @@ Hermes Buildathon, Virality track. Target: quick working version in ~2 hours.
 This file is self-contained — no other context needed. It supersedes
 Hermes-Handoff.md.
 
+## STATUS — Track A done, Track B can start now
+
+Track A backend is **built, deployed, and verified end-to-end**. Track B has
+no backend blockers.
+
+- **Live backend base URL:** `https://energized-ladybug-532.convex.site`
+  (production Convex deployment — one URL all day, redeployed in place).
+- All 5 API endpoints below are live, CORS-enabled, and tested: arguments are
+  funny/in-character, the Demon cites real Linkup sources, TTS returns valid
+  MP3, and custom-character creation works.
+- **Background art is ready:** `site-reference.png` in the project root —
+  already cleaned (text removed). Use it directly in Higgsfield; **skip the
+  cleaning step.**
+- **One thing to fetch before the first public deploy:** a PostHog project key
+  + host (see the PostHog subsection under Track B). Build with a placeholder,
+  swap the real `phc_...` key in before deploying / posting.
+
 ## How this file is used
 
 - **Track A (backend + glue): Claude Fable session.** Paste this file, say
@@ -101,10 +118,10 @@ character-creator dropdown, hardcode the list.
 
 ## API CONTRACT (frozen — both tracks build against this)
 
-Base URL: `https://<deployment>.convex.site` (Track A posts the real URL in
-chat the moment `npx convex dev` is running; Track B keeps it in one const).
+Base URL (LIVE): `https://energized-ladybug-532.convex.site` — Track A's
+production deployment, already deployed and verified. Keep it in one const.
 All endpoints: JSON in/out, CORS `Access-Control-Allow-Origin: *`, OPTIONS
-preflight handled.
+preflight handled. All 5 endpoints below are live.
 
 ### POST /api/argue
 Req: `{ "dilemma": string, "angelId"?: string, "demonId"?: string, "email"?: string }`
@@ -226,7 +243,10 @@ Fast, flattering, sharp. Calls the user "champ" or "legend". Loves a statistic. 
 2. **Gym Bro** (role demon) — everything is reps and PRs; "Bro, regret is just a skipped set."
 3. **Victorian Ghost** (role angel) — ominous warnings from beyond; died of the exact thing you're about to do.
 
-### Track A checkpoints (run in order, paste results in chat)
+### Track A checkpoints — ALL GREEN (deployed to prod, verified)
+Notes from the build: `gpt-5.6-sol` rejects any non-default `temperature`
+(param omitted); several ElevenLabs premade voice ids were retired, so preset
+and dropdown ids were refreshed against a live `GET /v1/voices`.
 - **A1 (T+0:15):** `npx convex dev` up; `/api/signup` live —
   `curl -X POST <base>/api/signup -H "content-type: application/json" -d '{"email":"test@x.com","source":"waitlist"}'`
   → row visible in Convex dashboard. **Post the base URL for Track B now.**
@@ -250,11 +270,10 @@ playful theme, Angel sprite floats left with slow CSS bob, Demon floats
 right, big centered dilemma input). Hermes wires behavior with plain JS
 `fetch()` — no framework requirements, whatever Higgsfield output uses.
 
-**Background art:** the project root contains `site-reference.jpeg` — the
-design reference for the page. Pipeline:
-1. In Higgsfield, use it as the reference image, but CLEAN it first: remove
-   all embedded text/lettering, keep the composition and characters. Then
-   animate/stylize from the cleaned version.
+**Background art:** the project root contains `site-reference.png` — the
+design reference, **already cleaned (embedded text removed)**. Pipeline:
+1. In Higgsfield, use `site-reference.png` directly as the reference image and
+   animate/stylize from it. No cleaning step needed — the text is already gone.
 2. The cleaned art is the full-bleed page background. All real text lives in
    HTML layered on top — never baked into the image (baked text can't change,
    can't be read by judges' phones at odd sizes, and kills the typewriter
@@ -294,6 +313,16 @@ Page states:
 Required in `<head>`: PostHog snippet (free tier) — MUST be live before the
 first social post. Track events: `dilemma_argued`, `signup_waitlist`,
 `signup_gate`, `character_created`.
+
+PostHog values (get from posthog.com → sign up → pick the JS/HTML web install
+snippet; the project key is public and safe to hardcode):
+```
+POSTHOG_PROJECT_KEY = phc_...                     (from the install screen)
+POSTHOG_HOST        = https://us.i.posthog.com    (US region; EU = https://eu.i.posthog.com — copy whichever the install page shows)
+```
+Wire the standard PostHog web snippet in `<head>` with these two values, then
+`posthog.capture('<event>')` on each of the four events above. Build with a
+placeholder key now; drop the real `phc_...` in before the B1 deploy/post.
 
 Deploy: `npx wrangler pages deploy <dist> --project-name angel-demons` —
 first deploy by T+0:20 with just the hero + waitlist wired, then redeploy the
